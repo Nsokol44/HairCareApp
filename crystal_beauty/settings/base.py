@@ -102,7 +102,8 @@ WSGI_APPLICATION = "crystal_beauty.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": BASE_DIR / "postgres",
+        "NAME": "postgres",
+        'HOST': 'postgresql://smumgxfeugbsboll:dnkuqmjwyfmxelte@159.223.116.27:8000/xwtexszixokhczws',
     }
 }
 
