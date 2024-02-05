@@ -103,7 +103,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
-        'HOST': 'postgresql://smumgxfeugbsboll:dnkuqmjwyfmxelte@159.223.116.27:8000/xwtexszixokhczws',
+        'HOST': '159.223.116.27',
     }
 }
 
