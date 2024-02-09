@@ -11,11 +11,40 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import environ
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+env = environ.Env()
+DEBUG = env.bool("DJANGO_DEBUG", False)
 
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWD_HOSTS = env.list('DJANGO_ALLOWED_HOSTS')
+SECRET_KEY = env.str('DJANGO_SECRET_KEY')
+DATABASES = {
+    "default": env.db("DATABASE_URL")
+}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler'
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        }
+    }
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -99,13 +128,6 @@ WSGI_APPLICATION = "crystal_beauty.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        'HOST': '159.223.116.27',
-    }
-}
 
 
 # Password validation
